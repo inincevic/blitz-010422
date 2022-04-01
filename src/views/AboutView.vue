@@ -3,20 +3,23 @@
     <h1>This is an about page</h1>
     <div id="app">
     <ul id="example-1">
-        <li>{{book.name}}</li>
+        <li>Book name: {{book.name}}</li>
         <br>
-        <li>{{book.authors}}</li>
+        <li>List of authors: {{book.authors}}</li>
         <br>
-        <li>{{book.isbn}}</li>
+        <li>ISBN: {{book.isbn}}</li>
         <br>
-        <li>{{book.numberOfPages}}</li>
+        <li>Number of pages: {{book.numberOfPages}}</li>
         <br>
-        <li>{{book.publisher}}</li>
+        <li>Published by {{book.publisher}}</li>
         <br>
-        <li>{{book.country}}</li>
+        <li>Originally released in {{book.country}}</li>
         <br>
-        <li>{{characterCount}}</li>
+        <li>Number of characters: {{characterCount}}</li>
     </ul>
+    <br>
+    <br>
+    <br>
     <router-link to="/">Back to home</router-link>
     <router-view />
   </div>
