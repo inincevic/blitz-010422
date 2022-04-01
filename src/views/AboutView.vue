@@ -2,42 +2,48 @@
   <div class="about">
     <h1>This is an about page</h1>
     <div id="app">
-    <ul id="example-1" v-if="book.name">
+    <ul id="example-1">
         <li>{{book.name}}</li>
+        <br>
+        <li>{{book.authors}}</li>
+        <br>
+        <li>{{book.isbn}}</li>
+        <br>
+        <li>{{book.numberOfPages}}</li>
+        <br>
+        <li>{{book.publisher}}</li>
+        <br>
+        <li>{{book.country}}</li>
+        <br>
+        <li>{{characterCount}}</li>
     </ul>
+    <router-link to="/">Back to home</router-link>
+    <router-view />
   </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import bookData from "@/dataForParsing.json";
 
 export default {
+  props: ['name'],
   name: "Details",
-  props: ["name"],
 
   data() {
-    return { book: {} };
-  },
-  methods: {
-    async getBookData() {
-      try {
-        const response = await axios.get(
-          "http://cantab.elaclo.com:8000/books.json"
-        );
-        return response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    return { 
+      book: {}, 
+      characterCount: ''};
   },
   created() {
-    this.getBookData().then((data) => {
-      this.book = data.find(
-        (book) => book.name === localStorage.getItem("requestedName")
-      );
-      console.log(this.commit);
-    });
+    for(let book of bookData)
+    {
+      if(book.name == localStorage.getItem("requestedBook")){
+        this.book = book;
+      }
+    }
+    this.characterCount = this.book.characters.length;
   },
 };
 </script>

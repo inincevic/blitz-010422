@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <ul id="example-1">
-      <li v-for="book in this.simpleBookData" :key="book">
-        Book: <router-link to="/details/name" @click="setBook(book.name)">{{ book.name }}</router-link>
+      <li v-for="book in this.bookData" :key="book">
+        Book: <router-link to="/about/name" @click="setBook(book.name)">{{ book.name }}</router-link>
         <br />
-        First author: {{ book.authors }}
+        First author: {{ book.authors[0] }}
         <br />
         Release date: {{ book.released }}
 
@@ -17,36 +17,20 @@
 
 <script>
 // @ is an alias to /src
-import axios from "axios";
+import bookData from "@/dataForParsing.json";
 
 export default {
   name: "HomeView",
   components: {},
   data() {
-    return { simpleBookData: [] };
+    return { 
+      bookData,
+     };
   },
   methods: {
-    async getData() {
-      try {
-        const response = await axios.get(
-          "http://cantab.elaclo.com:8000/books.json"
-        );
-        this.simpleBookData = response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    consolePrintData() {
-      console.log(this.simpleBookData);
-    },
     setBook(name) {
       localStorage.setItem("requestedBook", name);
     },
-  },
-
-  created() {
-    this.getData();
-    this.consolePrintData();
   },
 };
 </script>
