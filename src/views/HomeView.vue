@@ -1,18 +1,36 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ul id="example-1">
+      <li v-for="book in this.bookData" :key="book">
+        Book: <router-link to="/about/name" @click="setBook(book.name)">{{ book.name }}</router-link>
+        <br />
+        First author: {{ book.authors[0] }}
+        <br />
+        Release date: {{ book.released }}
+
+        <br />
+        <br />
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import bookData from "@/dataForParsing.json";
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+  name: "HomeView",
+  components: {},
+  data() {
+    return { 
+      bookData,
+     };
+  },
+  methods: {
+    setBook(name) {
+      localStorage.setItem("requestedBook", name);
+    },
+  },
+};
 </script>
